@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodavnica Trotineta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #3a3a3a;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            display: none; /* Skriveno dok se stranica ne učita */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .scooter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .scooter {
+            background: #4a4a4a;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: calc(50% - 10px); /* Dve kocke u jednom redu */
+            margin-bottom: 20px;
+        }
+
+        .scooter:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .scooter img {
+            border-radius: 5px;
+            max-width: 90%;
+            height: auto;
+        }
+
+        .info {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #5a5a5a;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Animacija učitavanja */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c2c2c;
+        }
+
+        .loader span {
+            font-size: 24px;
+            color: #ffcc00;
+            animation: fade 1s infinite;
+        }
+
+        @keyframes fade {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .scooter {
+                width: calc(100% - 10px); /* Jedna kocka u jednom redu na mobilnim uređajima */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <span>Učitavanje... Trotineti se pripremaju!</span>
+    </div>
+    <div class="container" id="mainContent">
+        <h1>Prodavnica Trotineta</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Pretraži trotinet..." oninput="filterScooters()">
+        </div>
+
+        <div class="scooter-container" id="scooterContainer">
+            <div class="scooter" onclick="showInfo('scooterInfo1')">
+                <img src="xiaomi1s.png" alt="Xiaomi 1S">
+                <h2>Xiaomi 1S</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo2')">
+                <img src="xiaomim365.png" alt="Xiaomi M365">
+                <h2>Xiaomi M365</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo3')">
+                <img src="xiaomim365pro.png" alt="Xiaomi M365 Pro">
+                <h2>Xiaomi M365 Pro</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo4')">
+                <img src="xiaomipro2.png" alt="Xiaomi Pro 2">
+                <h2>Xiaomi Pro 2</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo5')">
+                <img src="xiaomi4.png" alt="Xiaomi 4">
+                <h2>Xiaomi 4</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo6')">
+                <img src="xiaomi4pro.png" alt="Xiaomi 4 Pro">
+                <h2>Xiaomi 4 Pro</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo33')">
+                <img src="msenergyn3.png" alt="ms energy n3">
+                <h2>Ms energy n3</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo77')">
+                <img src="msenergye20.png" alt="ms energy n3">
+                <h2>Ms energy e20</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo66')">
+                <img src="msenergye21.png" alt="ms energy n3">
+                <h2>Ms energy e21</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo99')">
+                <img src="msenergym10.png" alt="ms energy m10">
+                <h2>Ms energy m10</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo13')">
+                <img src="xiaomi4lite2.png" alt="Xiaomi 4 Pro">
+                <h2>Xiaomi 4 lite(2nd gen)</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo88')">
+                <img src="msenergye10.png" alt="Xiaomi 4 Pro">
+                <h2>Ms Energy e10</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo9')">
+                <img src="xiaomi3lite.png" alt="Xiaomi Lite">
+                <h2>Xiaomi 3 Lite</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo55')">
+                <img src="msenergyx10.png" alt="Xiaomi Lite">
+                <h2>Ms energy x10</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo44')">
+                <img src="msenergymentor.png" alt="Xiaomi Lite">
+                <h2>Ms energy mentor</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo10')">
+                <img src="xiaomi4ultra.png" alt="Xiaomi Ultra">
+                <h2>Xiaomi 4 Ultra</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo11')">
+                <img src="xiaomi3.png" alt="Xiaomi Mi Electric Scooter 3">
+                <h2>Xiaomi Mi Electric Scooter 3</h2>
+            </div>
+            <div class="scooter" onclick="showInfo('scooterInfo12')">
+                <img src="xiaomipro2.png" alt="Xiaomi Mi Electric Scooter Pro 2">
+                <h2>Xiaomi Mi Electric Scooter Pro 2</h2>
+            </div>
+        </div>
+
+        <div class="info" id="scooterInfo1">
+            <img src="xiaomi1s.png" alt="Trotinet Xiaomi 1S" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 1S:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 30 km</p>
+            <p>Cena: 431e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo2">
+            <img src="xiaomim365.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms energy n3:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 30 km</p>
+            <p>Cena: 399e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo44">
+            <img src="xiaomim365.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms energy Mentor:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 60 km</p>
+            <p>Cena: 632e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo99">
+            <img src="msenergym10.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms Energy m10:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 28 km</p>
+            <p>Cena: 333e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo66">
+            <img src="msenergye21.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms Energy e21:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 90 km</p>
+            <p>Cena: 675e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo55">
+            <img src="msenergyx10.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms Energy x10:</h3>
+            <p>Brzina: 65 km/h</p>
+            <p>Domet: 55-75 km</p>
+            <p>Cena: 1.300e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo88">
+            <img src="msenergye10.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms Energy e10:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 40 km</p>
+            <p>Cena: 552e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo77">
+            <img src="msenergye20.png" alt="Trotinet Xiaomi M365" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms Energy e20:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 60 km</p>
+            <p>Cena: 671e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo3">
+            <img src="xiaomim365pro.png" alt="Trotinet Xiaomi M365 Pro" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi M365 Pro:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 45 km</p>
+            <p>Cena: 499e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo4">
+            <img src="xiaomipro2.png" alt="Trotinet Xiaomi Pro 2" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi Pro 2:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 45 km</p>
+            <p>Cena: 549e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo5">
+            <img src="xiaomi4.png" alt="Trotinet Xiaomi 4" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 4:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 55 km</p>
+            <p>Cena: 599e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo13">
+            <img src="xiaomi4lite2.png" alt="Trotinet Xiaomi 4" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 4(2nd Gen):</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 25 km</p>
+            <p>Cena: 339e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo6">
+            <img src="xiaomi4pro.png" alt="Trotinet Xiaomi 4 Pro" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 4 Pro:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 50 km</p>
+            <p>Cena: 799e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo9">
+            <img src="xiaomi3lite.png" alt="Trotinet Xiaomi Lite" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 3 Lite:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 20 km</p>
+            <p>Cena: 400e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo10">
+            <img src="xiaomi4ultra.png" alt="Trotinet Xiaomi Ultra" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 4 Ultra:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 70 km</p>
+            <p>Cena: 1099e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo11">
+            <img src="xiaomi3.png" alt="Trotinet Xiaomi Mi Electric Scooter 3" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi 3:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 30 km</p>
+            <p>Cena: 449e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo33">
+            <img src="msenergyn3.png" alt="Trotinet Xiaomi Ultra" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Ms energy n3:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 28 km</p>
+            <p>Cena: 432e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+        <div class="info" id="scooterInfo12">
+            <img src="xiaomipro2.png" alt="Trotinet Xiaomi Mi Electric Scooter Pro 2" style="max-width: 200px;">
+            <h3>Informacije o Trotinetu Xiaomi Pro 2:</h3>
+            <p>Brzina: 25 km/h</p>
+            <p>Domet: 45 km</p>
+            <p>Cena: 579e</p>
+            <button class="back-button" onclick="goBack()">Nazad</button>
+        </div>
+    </div>
+
+    <script>
+        // Uklanja loader i prikazuje glavni sadržaj
+        window.onload = function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 2000); // Uklanjanje loader-a nakon 2 sekunde
+        };
+
+        function showInfo(id) {
+            var scooters = document.querySelectorAll('.scooter');
+            scooters.forEach(scooter => {
+                scooter.style.display = 'none'; // Sakrij sve kocke
+            });
+            var infos = document.querySelectorAll('.info');
+            infos.forEach(info => {
+                info.style.display = 'none'; // Sakrij sve informacije
+            });
+            var infoToShow = document.getElementById(id);
+            infoToShow.style.display = 'block'; // Prikaži informacije za izabrani trotinet
+        }
+
+        function goBack() {
+            var scooters = document.querySelectorAll('.scooter');
+            scooters.forEach(scooter => {
+                scooter.style.display = 'block'; // Prikaži sve kocke
+            });
+            var infos = document.querySelectorAll('.info');
+            infos.forEach(info => {
+                info.style.display = 'none'; // Sakrij sve informacije
+            });
+        }
+
+        function filterScooters() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var scooters = document.querySelectorAll('.scooter');
+
+            scooters.forEach(scooter => {
+                var scooterName = scooter.querySelector('h2').innerText.toLowerCase();
+                if (scooterName.includes(input)) {
+                    scooter.style.display = 'block'; // Prikaži trotinet ako se ime poklapa
+                } else {
+                    scooter.style.display = 'none'; // Sakrij trotinet ako se ime ne poklapa
+                }
+            });
+        }
+    </script>
+</body>
+</html>
